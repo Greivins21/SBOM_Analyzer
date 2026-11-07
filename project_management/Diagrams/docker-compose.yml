@@ -1,0 +1,23 @@
+# Structurizr — Ship Happens C4 Diagrams
+#
+# Usage:
+#   docker compose up -d
+#   Open http://localhost:8080 in your browser
+#
+# The workspace.dsl in this directory is auto-loaded.
+# Any edits to workspace.dsl are picked up on browser refresh (no restart needed).
+#
+# Note: structurizr/lite is sunset. We use structurizr/structurizr with the
+# 'local' command, which is the official replacement with the same behaviour.
+
+services:
+  structurizr:
+    image: structurizr/structurizr:latest
+    container_name: ship-happens-structurizr
+    command: local
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mount this directory (project_management/) as the Structurizr workspace root
+      - .:/usr/local/structurizr
+    restart: unless-stopped

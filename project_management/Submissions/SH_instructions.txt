@@ -1,0 +1,195 @@
+================================================================================
+SHIP HAPPENS — PROTOTYPE INSTRUCTIONS
+Team: SH (MICAC SoA 2026)
+================================================================================
+
+================================================================================
+QUICK ACCESS / PRE-DEPLOYED VERSION
+================================================================================
+The prototype is already fully deployed and running in an OpenNebula VM. 
+If you are connected to the university Wi-Fi or connected via the university VPN, 
+you can immediately access and test the live application here:
+
+    https://ship-happens.duckdns.org:14361/
+
+
+REQUIREMENTS
+------------
+- Linux (Ubuntu/Debian recommended)
+- Docker & Docker Compose (for Dockerized runs)
+- Python 3.10+ & pip (for direct local runs)
+- A GitHub Personal Access Token (strongly recommended to raise API limit)
+  Create one at: https://github.com/settings/tokens
+  No scopes needed — leave all checkboxes unchecked.
+- A DuckDNS account (with a registered subdomain and API Token, for Option A)
+
+
+================================================================================
+RUNTIME OPTIONS & CONFIGURATION
+================================================================================
+
+If you want to deploy on your own there are three distinct ways to run and test, depending on the environment:
+
+- OPTION A: Production Deployment (Docker + DuckDNS + Let's Encrypt SSL)
+- OPTION B: Local Docker Deployment (Docker + Localhost + Self-Signed HTTPS)
+- OPTION C: Direct Local Development (Python Virtual Environments + HTTP)
+
+
+--------------------------------------------------------------------------------
+OPTION A — Production Deployment (Docker + DuckDNS + Let's Encrypt SSL)
+--------------------------------------------------------------------------------
+This is the default configuration deployed on a public-facing domain with automatic HTTPS certificates.
+
+1. Create a `.env` file in the project root:
+   ```env
+   GITHUB_TOKEN=your_github_personal_access_token
+   ALLOWED_ORIGINS=https://your-subdomain.duckdns.org:14361
+   DUCKDNS_TOKEN=your_duckdns_token_here
+   DOMAIN=your-subdomain.duckdns.org
+   EMAIL=your-email@example.com
+   ```
+
+2. Update `source_code/deployment/nginx.conf`:
+   - Change `server_name` (lines 3 & 11) to your domain: `your-subdomain.duckdns.org`
+   - Update paths in lines 13 & 14: `/etc/nginx/certs/live/your-subdomain.duckdns.org/fullchain.pem`
+
+3. Navigate to deployment folder and launch the stack:
+   ```bash
+   cd source_code/deployment
+   docker compose up --build -d
+   ```
+   *Certbot will automatically verify ownership via DuckDNS TXT records, obtain a Let's Encrypt certificate, and start Nginx.*
+
+
+--------------------------------------------------------------------------------
+OPTION B — Local Docker Deployment (Docker + Localhost + Self-Signed HTTPS)
+--------------------------------------------------------------------------------
+If you want to test the Docker setup locally on `localhost` without registering a domain or needing a public IP:
+
+1. Create a local `.env` file in the project root:
+   ```env
+   GITHUB_TOKEN=your_github_personal_access_token
+   ALLOWED_ORIGINS=https://localhost:14361
+   ```
+
+2. Generate a self-signed certificate:
+   ```bash
+   mkdir -p source_code/deployment/certs
+   openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+     -keyout source_code/deployment/certs/key.pem \
+     -out source_code/deployment/certs/cert.pem \
+     -subj "/CN=localhost"
+   ```
+
+3. Modify Nginx config (`source_code/deployment/nginx.conf`):
+   - Set `server_name localhost;` (lines 3 & 11)
+   - Update lines 13 & 14 to point to the local certificate folder:
+     ```nginx
+     ssl_certificate /etc/nginx/certs/cert.pem;
+     ssl_certificate_key /etc/nginx/certs/key.pem;
+     ```
+
+4. Edit `source_code/deployment/docker-compose.yml`:
+   - Remove the entire `certbot` service block.
+   - Under the `nginx` service, remove the `depends_on` block that references `certbot`.
+   - Update the volume mount for Nginx certs to point directly to the local folder:
+     Change `./certs:/etc/nginx/certs:ro` to `./certs:/etc/nginx/certs:ro`
+
+5. Start the stack:
+   ```bash
+   cd source_code/deployment
+   docker compose up --build -d
+   ```
+   *Access the web app securely at: https://localhost:14361*
+
+
+--------------------------------------------------------------------------------
+OPTION C — Direct Local Development (Python Virtual Environments + HTTP)
+--------------------------------------------------------------------------------
+The simplest way to run and inspect the prototype locally without Docker or SSL:
+
+1. In the project root, create a `.env` file containing:
+   ```env
+   GITHUB_TOKEN=your_github_personal_access_token
+   ```
+
+2. Start the Backend API (FastAPI):
+   ```bash
+   cd source_code/dependency_reader
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   python -m uvicorn api:app --reload --port 8000
+   ```
+   *The scanner service is now running at: http://localhost:8000*
+
+3. Start the Frontend (Flask):
+   - Open a new terminal.
+   ```bash
+   cd source_code/webapp
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r ../dependency_reader/requirements.txt
+   export SCANNER_API="http://localhost:8000/zombie-scan"
+   python app.py
+   ```
+   *The frontend dashboard is now running at: http://localhost:5000*
+
+
+
+================================================================================
+TESTING THE PROTOTYPE
+================================================================================
+
+1. Open your browser and navigate to the application URL (depending on the option chosen above).
+2. Paste a GitHub repository link in the text box.
+   Example links for testing:
+   - **Safe:** `https://github.com/boto/boto3` (actively maintained, well-staffed, no CVEs)
+   - **Warning:** `https://github.com/Miserlou/Zappa` (some inactivity and open issues, but minor risks)
+   - **Dangerous:** `https://github.com/ansible/ansible` (known CVE vulnerabilities)
+3. Click "Analyze" and observe the results.
+4. Download the generated assessment JSON file using the "Download JSON Report" button to inspect detailed metadata.
+
+Testing the API directly with curl:
+```bash
+curl -X POST http://localhost:8000/zombie-scan \
+     -H "Content-Type: application/json" \
+     -d '{"repo_url": "https://github.com/axios/axios"}'
+```
+
+================================================================================
+USEFUL COMMANDS (DOCKER RUNS)
+================================================================================
+- View logs: `docker compose logs -f`
+- Stop the stack: `docker compose down`
+- Rebuild after code changes: `docker compose up --build -d`
+
+
+================================================================================
+DIRECTORY STRUCTURE
+================================================================================
+micac_soa_2026_sh/
+  README.md                       Main documentation
+  SH_instructions.txt             Team SH deployment instructions (this file)
+  source_code/
+    deployment/                   Docker deployment files
+      docker-compose.yml          Docker Compose stack setup
+      nginx.conf                  Nginx reverse proxy configuration
+      Dockerfile.backend          Backend container specification
+      Dockerfile.frontend         Frontend container specification
+    dependency_reader/            Scanner API (FastAPI)
+      api.py                      REST endpoints
+      utils.py                    Dependency parser + GitHub fetcher
+      vulnerability_checker.py    CVE lookup via OSV API
+      vitality_enricher.py        Package health metrics
+      risk_scorer.py              Zombie risk scoring
+      config/
+        heuristic_config.json     Zombie package rating configurations
+    webapp/                       Web frontend (Flask)
+      app.py                      Routes and API proxy
+      templates/index.html        UI
+  project_management/             Project documents (in Documents/), diagrams (in Diagrams/), images & gifs (in Images/)
+
+================================================================================
+END OF INSTRUCTIONS
+================================================================================

@@ -1,0 +1,23 @@
+# Build context is source_code/ (one level up from this file)
+FROM python:3.13-slim
+
+# Security: run as non-root user
+RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+
+WORKDIR /app
+
+# Install Flask + Gunicorn
+RUN pip install --no-cache-dir flask requests gunicorn
+
+# Copy frontend source
+COPY webapp/ .
+
+# Fix for gunicorn permission error with /nonexistent home directory
+ENV HOME=/tmp
+
+USER appuser
+
+EXPOSE 5000
+
+# 8 gunicorn workers to handle higher concurrency for benchmarking/presentation
+CMD ["gunicorn", "--workers", "8", "--bind", "0.0.0.0:5000", "app:app"]

@@ -1,0 +1,523 @@
+$ python main.py 
+
+=== Dependency Reader & Zombie Scanner ===
+
+Enter the public repository link: https://github.com/axios/axios
+✓  Valid public repository.
+✓  Fetched root contents for 'axios/axios'.
+  ↳  Dependency file detected: package.json
+
+──────────────────────────────────────────────────
+  Source file : package.json
+  Packages    : 48
+──────────────────────────────────────────────────
+  follow-redirects                 ^1.15.11
+  form-data                        ^4.0.5
+  proxy-from-env                   ^2.1.0
+  @babel/core                      ^7.29.0
+  @babel/preset-env                ^7.29.0
+  @commitlint/cli                  ^20.4.4
+  @commitlint/config-conventional  ^20.4.4
+  @eslint/js                       ^10.0.1
+  @rollup/plugin-alias             ^6.0.0
+  @rollup/plugin-babel             ^7.0.0
+  @rollup/plugin-commonjs          ^29.0.2
+  @rollup/plugin-json              ^6.1.0
+  @rollup/plugin-node-resolve      ^16.0.3
+  @rollup/plugin-terser            ^1.0.0
+  @vitest/browser                  ^4.1.1
+  @vitest/browser-playwright       ^4.1.1
+  abortcontroller-polyfill         ^1.7.8
+  auto-changelog                   ^2.5.0
+  body-parser                      ^2.2.2
+  chalk                            ^5.6.2
+  cross-env                        ^10.1.0
+  dev-null                         ^0.1.1
+  eslint                           ^10.1.0
+  express                          ^5.2.1
+  formdata-node                    ^6.0.3
+  formidable                       ^3.2.4
+  fs-extra                         ^11.3.4
+  get-stream                       ^9.0.1
+  globals                          ^17.4.0
+  gulp                             ^5.0.1
+  handlebars                       ^4.7.8
+  husky                            ^9.1.7
+  lint-staged                      ^16.4.0
+  memoizee                         ^0.4.17
+  minimist                         ^1.2.8
+  multer                           ^2.1.1
+  pacote                           ^21.5.0
+  playwright                       ^1.58.2
+  prettier                         ^3.8.1
+  pretty-bytes                     ^7.1.0
+  rollup                           ^4.60.0
+  rollup-plugin-bundle-size        ^1.0.3
+  selfsigned                       ^5.5.0
+  stream-throttle                  ^0.1.3
+  string-replace-async             ^3.0.2
+  tar-stream                       ^3.1.8
+  typescript                       ^5.9.3
+  vitest                           ^4.1.1
+──────────────────────────────────────────────────
+
+
+═══════════════════════════════════════════════════════
+                 VULNERABILITY REPORT                
+  Ecosystem : npm  |  Packages checked: 48
+═══════════════════════════════════════════════════════
+  Querying OSV API… done.
+
+  Fetching vulnerability details… done.
+
+  [!] VULNERABLE (13)
+  ───────────────────────────────────────────────────
+
+  [PKG] follow-redirects  ^1.15.11
+     [VULN] GHSA-74fj-2j2h-c42q  (CVE-2022-0155)  [HIGH]
+            Exposure of sensitive information in follow-redirects
+     [VULN] GHSA-cxjh-pqwp-8mfp  (CVE-2024-28849)  [UNKNOWN]
+            follow-redirects' Proxy-Authorization header kept across hosts
+     [VULN] GHSA-jchw-25xp-jwwc  (CVE-2023-26159)  [UNKNOWN]
+            Follow Redirects improperly handles URLs in the url.parse() function
+     [VULN] GHSA-pw2r-vq6v-hr8c  (CVE-2022-0536)  [UNKNOWN]
+            Exposure of Sensitive Information to an Unauthorized Actor in follow-redirects
+
+  [PKG] form-data  ^4.0.5
+     [VULN] GHSA-fjxv-7rqg-78g4  (CVE-2025-7783)  [CRITICAL]
+            form-data uses unsafe random function in form-data for choosing boundary
+
+  [PKG] @vitest/browser  ^4.1.1
+     [VULN] GHSA-8gvc-j273-4wm5  (CVE-2025-24963)  [UNKNOWN]
+            Vitest browser mode serves arbitrary files
+
+  [PKG] body-parser  ^2.2.2
+     [VULN] GHSA-qwcr-r2fm-qrc7  (CVE-2024-45590)  [HIGH]
+            body-parser vulnerable to denial of service when url encoding is enabled
+     [VULN] GHSA-wqch-xfxh-vrr4  (CVE-2025-13466)  [UNKNOWN]
+            body-parser is vulnerable to denial of service when url encoding is used
+
+  [PKG] chalk  ^5.6.2
+     [VULN] MAL-2025-46969  [UNKNOWN]
+            Malicious code in chalk (npm)
+
+  [PKG] express  ^5.2.1
+     [VULN] GHSA-cm5g-3pgc-8rg4  (CVE-2024-10491)  [UNKNOWN]
+            Express ressource injection
+     [VULN] GHSA-gpvr-g6gh-9mc2  (CVE-2014-6393)  [UNKNOWN]
+            No Charset in Content-Type Header in express
+     [VULN] GHSA-jj78-5fmv-mv28  (CVE-2024-9266)  [LOW]
+            Express Open Redirect vulnerability
+     [VULN] GHSA-qw6h-vgh9-j6wx  (CVE-2024-43796)  [LOW]
+            express vulnerable to XSS via response.redirect()
+     [VULN] GHSA-rv95-896h-c2vc  (CVE-2024-29041)  [UNKNOWN]
+            Express.js Open Redirect in malformed URLs
+
+  [PKG] formidable  ^3.2.4
+     [VULN] GHSA-75v8-2h7p-7m2m  (CVE-2025-46653)  [LOW]
+            Formidable relies on hexoid to prevent guessing of filenames for untrusted execu
+
+  [PKG] handlebars  ^4.7.8
+     [VULN] GHSA-2cf5-4w76-r9qv  [HIGH]
+            Arbitrary Code Execution in handlebars
+     [VULN] GHSA-2qvq-rjwj-gvw9  (CVE-2026-33916)  [UNKNOWN]
+            Handlebars.js has Prototype Pollution Leading to XSS through Partial Template In
+     [VULN] GHSA-2w6w-674q-4c4q  (CVE-2026-33937)  [CRITICAL]
+            Handlebars.js has JavaScript Injection via AST Type Confusion
+     [VULN] GHSA-3cqr-58rm-57f8  (CVE-2019-20920)  [HIGH]
+            Arbitrary Code Execution in Handlebars
+     [VULN] GHSA-3mfm-83xf-c92r  (CVE-2026-33938)  [HIGH]
+            Handlebars.js has JavaScript Injection via AST Type Confusion by tampering @part
+     [VULN] GHSA-442j-39wm-28r2  [LOW]
+            Handlebars.js has a Property Access Validation Bypass in container.lookup
+     [VULN] GHSA-62gr-4qp9-h98f  (CVE-2019-20922)  [HIGH]
+            Regular Expression Denial of Service in Handlebars
+     [VULN] GHSA-765h-qjxv-5f44  (CVE-2021-23383)  [CRITICAL]
+            Prototype Pollution in handlebars
+     [VULN] GHSA-7rx3-28cr-v5wh  [UNKNOWN]
+            Handlebars.js has a Prototype Method Access Control Gap via Missing __lookupSett
+     [VULN] GHSA-9cx6-37pm-9jff  (CVE-2026-33939)  [HIGH]
+            Handlebars.js has Denial of Service via Malformed Decorator Syntax in Template C
+     [VULN] GHSA-9prh-257w-9277  (CVE-2015-8861)  [UNKNOWN]
+            Cross-Site Scripting in handlebars
+     [VULN] GHSA-f2jv-r9rf-7988  (CVE-2021-23369)  [CRITICAL]
+            Remote code execution in handlebars when compiling templates
+     [VULN] GHSA-f52g-6jhx-586p  [UNKNOWN]
+            Denial of Service in handlebars
+     [VULN] GHSA-g9r4-xpmj-mj65  [HIGH]
+            Prototype Pollution in handlebars
+     [VULN] GHSA-q2c6-c6pm-g3gh  [HIGH]
+            Arbitrary Code Execution in handlebars
+     [VULN] GHSA-q42p-pg8m-cqh6  [HIGH]
+            Prototype Pollution in handlebars
+     [VULN] GHSA-w457-6q6x-cgp9  (CVE-2019-19919)  [CRITICAL]
+            Prototype Pollution in handlebars
+     [VULN] GHSA-xhpv-hc6g-r9c6  (CVE-2026-33940)  [HIGH]
+            Handlebars.js has JavaScript Injection via AST Type Confusion when passing an ob
+     [VULN] GHSA-xjpj-3mr7-gcpf  (CVE-2026-33941)  [HIGH]
+            Handlebars.js has JavaScript Injection in CLI Precompiler via Unescaped Names an
+
+  [PKG] minimist  ^1.2.8
+     [VULN] GHSA-vh95-rmgr-6w4m  (CVE-2020-7598)  [UNKNOWN]
+            Prototype Pollution in minimist
+     [VULN] GHSA-xvch-5gv4-984h  (CVE-2021-44906)  [CRITICAL]
+            Prototype Pollution in minimist
+
+  [PKG] multer  ^2.1.1
+     [VULN] GHSA-44fp-w29j-9vj5  (CVE-2025-47935)  [HIGH]
+            Multer vulnerable to Denial of Service via memory leaks from unclosed streams
+     [VULN] GHSA-4pg4-qvpc-4q3h  (CVE-2025-47944)  [HIGH]
+            Multer vulnerable to Denial of Service from maliciously crafted requests
+     [VULN] GHSA-5528-5vmv-3xc2  (CVE-2026-3520)  [HIGH]
+            Multer Vulnerable to Denial of Service via Uncontrolled Recursion
+     [VULN] GHSA-fjgf-rc76-4x9p  (CVE-2025-7338)  [HIGH]
+            Multer vulnerable to Denial of Service via unhandled exception from malformed re
+     [VULN] GHSA-g5hg-p3ph-g8qg  (CVE-2025-48997)  [HIGH]
+            Multer vulnerable to Denial of Service via unhandled exception
+     [VULN] GHSA-v52c-386h-88mc  (CVE-2026-2359)  [HIGH]
+            Multer vulnerable to Denial of Service via resource exhaustion
+     [VULN] GHSA-xf7r-hgr6-v32p  (CVE-2026-3304)  [HIGH]
+            Multer vulnerable to Denial of Service via incomplete cleanup
+
+  [PKG] playwright  ^1.58.2
+     [VULN] GHSA-7mvr-c777-76hp  (CVE-2025-59288)  [HIGH]
+            Playwright downloads and installs browsers without verifying the authenticity of
+
+  [PKG] rollup  ^4.60.0
+     [VULN] GHSA-gcx4-mw62-g8wm  (CVE-2024-47068)  [HIGH]
+            DOM Clobbering Gadget found in rollup bundled scripts that leads to XSS
+     [VULN] GHSA-mw96-cpmx-2vgc  (CVE-2026-27606)  [HIGH]
+            Rollup 4 has Arbitrary File Write via Path Traversal
+
+  [PKG] vitest  ^4.1.1
+     [VULN] GHSA-9crc-q9x8-hgqq  (CVE-2025-24964)  [CRITICAL]
+            Vitest allows Remote Code Execution when accessing a malicious website while Vit
+
+  [OK] CLEAN (35)
+  ───────────────────────────────────────────────────
+  proxy-from-env          @babel/core             @babel/preset-env    
+  @commitlint/cli         @commitlint/config-conventional   @eslint/js           
+  @rollup/plugin-alias    @rollup/plugin-babel    @rollup/plugin-commonjs
+  @rollup/plugin-json     @rollup/plugin-node-resolve   @rollup/plugin-terser
+  @vitest/browser-playwright   abortcontroller-polyfill   auto-changelog       
+  cross-env               dev-null                eslint               
+  formdata-node           fs-extra                get-stream           
+  globals                 gulp                    husky                
+  lint-staged             memoizee                pacote               
+  prettier                pretty-bytes            rollup-plugin-bundle-size
+  selfsigned              stream-throttle         string-replace-async 
+  tar-stream              typescript           
+
+  [SUMMARY] 13 vulnerable package(s), 35 clean  |  47 total advisories
+═══════════════════════════════════════════════════════
+
+✓  Saved to 'output.json'.
+
+ Enriching vitality metrics for 48 packages... done.
+  
+  [PACKAGE VITALITY METRICS]
+  * Risk Score = CVEs (up to 50) + Inactivity (up to 20) + Bus Factor (up to 15) + Neglect (up to 15)
+  ───────────────────────────────────────────────────
+  follow-redirects
+    Days since last commit : 71
+    Open issues            : 17
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 48 / 100
+
+  form-data
+    Days since last commit : 142
+    Open issues            : 137
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 32 / 100
+
+  @vitest/browser
+    Days since last commit : 0
+    Open issues            : 397
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 25 / 100
+
+  body-parser
+    Days since last commit : 35
+    Open issues            : 54
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 36 / 100
+
+  chalk
+    Days since last commit : 71
+    Open issues            : 5
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  express
+    Days since last commit : 1
+    Open issues            : 209
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 65 / 100
+
+  formidable
+    Days since last commit : 48
+    Open issues            : 54
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 27 / 100
+
+  handlebars
+    Days since last commit : 16
+    Open issues            : 106
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 65 / 100
+
+  minimist
+    Days since last commit : 99
+    Open issues            : 14
+    Maintainers (Bus Fact) : 22
+    Risk Score             : 29 / 100
+
+  multer
+    Days since last commit : 34
+    Open issues            : 252
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 66 / 100
+
+  playwright
+    Days since last commit : 0
+    Open issues            : 613
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 25 / 100
+
+  rollup
+    Days since last commit : 4
+    Open issues            : 601
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 35 / 100
+
+  vitest
+    Days since last commit : 0
+    Open issues            : 397
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 25 / 100
+
+  cross-env (DEPRECATED) [ZOMBIE!]
+    Days since last commit : 142
+    Open issues            : 1
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 100 / 100
+
+  proxy-from-env
+    Days since last commit : 24
+    Open issues            : 7
+    Maintainers (Bus Fact) : 4
+    Risk Score             : 3 / 100
+
+  @babel/core
+    Days since last commit : 1
+    Open issues            : 765
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  @babel/preset-env
+    Days since last commit : 1
+    Open issues            : 765
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  @commitlint/cli
+    Days since last commit : 0
+    Open issues            : 172
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  @commitlint/config-conventional
+    Days since last commit : 0
+    Open issues            : 172
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  @eslint/js
+    Days since last commit : 0
+    Open issues            : 105
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  @rollup/plugin-alias
+    Days since last commit : 26
+    Open issues            : 38
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 12 / 100
+
+  @rollup/plugin-babel
+    Days since last commit : 26
+    Open issues            : 38
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 12 / 100
+
+  @rollup/plugin-commonjs
+    Days since last commit : 26
+    Open issues            : 38
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 12 / 100
+
+  @rollup/plugin-json
+    Days since last commit : 26
+    Open issues            : 38
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 12 / 100
+
+  @rollup/plugin-node-resolve
+    Days since last commit : 26
+    Open issues            : 38
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 12 / 100
+
+  @rollup/plugin-terser
+    Days since last commit : 26
+    Open issues            : 38
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 12 / 100
+
+  @vitest/browser-playwright
+    Days since last commit : 0
+    Open issues            : 397
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  abortcontroller-polyfill
+    Days since last commit : 483
+    Open issues            : 16
+    Maintainers (Bus Fact) : 14
+    Risk Score             : 24 / 100
+
+  auto-changelog
+    Days since last commit : 573
+    Open issues            : 48
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 34 / 100
+
+  dev-null
+    Days since last commit : 4592
+    Open issues            : 1
+    Maintainers (Bus Fact) : 1
+    Risk Score             : 35 / 100
+
+  eslint
+    Days since last commit : 0
+    Open issues            : 105
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  formdata-node
+    Days since last commit : 310
+    Open issues            : 2
+    Maintainers (Bus Fact) : 15
+    Risk Score             : 17 / 100
+
+  fs-extra
+    Days since last commit : 35
+    Open issues            : 12
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 5 / 100
+
+  get-stream
+    Days since last commit : 527
+    Open issues            : 0
+    Maintainers (Bus Fact) : 17
+    Risk Score             : 20 / 100
+
+  globals
+    Days since last commit : 38
+    Open issues            : 11
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 5 / 100
+
+  gulp
+    Days since last commit : 58
+    Open issues            : 34
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 13 / 100
+
+  husky
+    Days since last commit : 19
+    Open issues            : 103
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 16 / 100
+
+  lint-staged
+    Days since last commit : 0
+    Open issues            : 37
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 11 / 100
+
+  memoizee
+    Days since last commit : 684
+    Open issues            : 29
+    Maintainers (Bus Fact) : 15
+    Risk Score             : 28 / 100
+
+  pacote
+    Days since last commit : 29
+    Open issues            : 25
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 9 / 100
+
+  prettier
+    Days since last commit : 0
+    Open issues            : 1479
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  pretty-bytes
+    Days since last commit : 199
+    Open issues            : 0
+    Maintainers (Bus Fact) : 19
+    Risk Score             : 10 / 100
+
+  rollup-plugin-bundle-size
+    Days since last commit : 2114
+    Open issues            : 3
+    Maintainers (Bus Fact) : 7
+    Risk Score             : 20 / 100
+
+  selfsigned
+    Days since last commit : 85
+    Open issues            : 2
+    Maintainers (Bus Fact) : 21
+    Risk Score             : 5 / 100
+
+  stream-throttle
+    Days since last commit : 4383
+    Open issues            : 4
+    Maintainers (Bus Fact) : 1
+    Risk Score             : 36 / 100
+
+  string-replace-async
+    Days since last commit : 1671
+    Open issues            : 7
+    Maintainers (Bus Fact) : 5
+    Risk Score             : 22 / 100
+
+  tar-stream
+    Days since last commit : 38
+    Open issues            : 18
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 7 / 100
+
+  typescript
+    Days since last commit : 0
+    Open issues            : 5013
+    Maintainers (Bus Fact) : 30
+    Risk Score             : 15 / 100
+
+  ───────────────────────────────────────────────────
+  Zombie Scan Complete
+  ───────────────────────────────────────────────────
+  Vulnerable Packages found: 13
+  Zombie (Unmaintained) Packages found: 1
+  ───────────────────────────────────────────────────
+  OVERALL REPOSITORY SECURITY SCORE : 100 / 100
+  STATUS                            : DANGEROUS (High probability of supply chain attack)
+  ───────────────────────────────────────────────────
+  Risk Score Formula (0-100):
+  CVEs (up to 50) + Inactivity (up to 20) +
+  Bus Factor (up to 15) + Issue Neglect (up to 15)
+  ───────────────────────────────────────────────────
+
+✓ Zombie report saved directly to 'zombie_report.json'

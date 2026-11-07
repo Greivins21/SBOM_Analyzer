@@ -1,0 +1,11 @@
+{
+    "repository": "https://github.com/boto/boto3",
+    "scan_info": {
+        "total_dependencies": 0,
+        "zombies_found": 0,
+        "vulnerable_found": 0,
+        "repo_risk_score_100": 0,
+        "repo_status": "SAFE (Healthy dependency tree)"
+    },
+    "analysis": []
+}

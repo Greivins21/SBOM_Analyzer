@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ship Happens</title>
+    <meta name="description"
+        content="Supply chain security scanner. Analyze open-source repositories for vulnerable and zombie dependencies.">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+        <!-- ─── HERO ──────────────────────────────────────────── -->
+        <header class="hero">
+            <div class="hero-badge">Supply Chain Security Scanner</div>
+            <h1 class="title">
+                <svg class="title-ship" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor">
+                    <path
+                        d="M272 64C245.5 64 224 85.5 224 112L224 128L208 128C163.8 128 128 163.8 128 208L128 316.8L106.4 325.4C91.6 331.3 83.9 347.8 89 362.9C99.4 394.2 115.8 422.2 136.7 446C156.8 436.8 178.4 432.1 200 432C233.1 431.8 266.3 442.2 294.4 463.4L296 464.6L296 249.6L192 291.2L192 208C192 199.2 199.2 192 208 192L432 192C440.8 192 448 199.2 448 208L448 291.2L344 249.6L344 464.6L345.6 463.4C373.1 442.7 405.5 432.2 438 432C460.3 431.9 482.6 436.5 503.3 446C524.2 422.3 540.6 394.2 551 362.9C556 347.7 548.4 331.3 533.6 325.4L512 316.8L512 208C512 163.8 476.2 128 432 128L416 128L416 112C416 85.5 394.5 64 368 64L272 64zM403.4 540.1C424.7 524 453.3 524 474.6 540.1C493.6 554.5 516.5 568.3 541.8 573.4C568.3 578.8 596.1 574.2 622.5 554.3C633.1 546.3 635.2 531.3 627.2 520.7C619.2 510.1 604.2 508 593.6 516C578.7 527.2 565 529.1 551.3 526.3C536.4 523.3 520.4 514.4 503.5 501.7C465.1 472.7 413 472.7 374.5 501.7C350.5 519.8 333.8 528 320 528C306.2 528 289.5 519.8 265.5 501.7C227.1 472.7 175 472.7 136.5 501.7C114.9 518 95.2 527.5 77.6 527.4C68 527.3 57.7 524.4 46.4 515.9C35.8 507.9 20.8 510 12.8 520.6C4.8 531.2 7 546.3 17.6 554.3C36.7 568.7 57 575.3 77.4 575.4C111.3 575.6 141.7 558 165.5 540.1C186.8 524 215.4 524 236.7 540.1C260.9 558.4 289 576 320.1 576C351.2 576 379.2 558.3 403.5 540.1z" />
+                </svg>
+                Ship Happens
+            </h1>
+            <p class="subtitle">Analyze open-source repositories for vulnerable dependencies and zombie packages.</p>
+
+            <div class="input-group">
+                <input type="text" id="repoInput" placeholder="https://github.com/owner/repository" autocomplete="off">
+                <button onclick="analyzeRepo()">Analyze</button>
+            </div>
+
+            <div class="sample-links">
+                Try a sample:
+                <a href="#" class="chip safe" onclick="setRepo('https://github.com/boto/boto3')">Boto3</a>
+                <a href="#" class="chip safe" onclick="setRepo('https://github.com/django/django')">Django</a>
+                <a href="#" class="chip warning" onclick="setRepo('https://github.com/Miserlou/Zappa')">Zappa</a>
+                <a href="#" class="chip danger" onclick="setRepo('https://github.com/ansible/ansible')">Ansible</a>
+            </div>
+        </header>
+
+        <!-- ─── LOADER ───────────────────────────────────────── -->
+        <div id="loader" class="loader-section hidden">
+            <div class="loader-text">Scanning cargo manifest...</div>
+            <div class="loader-bar">
+                <div class="loader-fill"></div>
+            </div>
+        </div>
+
+        <!-- ─── ERROR ────────────────────────────────────────── -->
+        <div id="errorBox" class="error-box hidden"></div>
+
+        <!-- ─── RESULTS ──────────────────────────────────────── -->
+        <div id="results" class="results hidden">
+
+            <!-- Container 01 — Score & Summary -->
+            <div class="cargo cargo--neutral">
+                <div class="cargo-body">
+                    <div class="cargo-header">
+                        <span class="cargo-title">Risk Assessment</span>
+                        <span class="cargo-serial">SH-CRGO-001</span>
+                    </div>
+                    <div class="cargo-divider"></div>
+                    <div class="score-row">
+                        <div class="gauge-wrap">
+                            <div class="gauge">
+                                <div id="needle" class="needle"></div>
+                                <div class="gauge-cover">
+                                    <span id="scoreValue">0</span>
+                                    <small>/100</small>
+                                </div>
+                            </div>
+                            <div id="repoStatus" class="repo-status">—</div>
+                            <div id="meanScore" class="mean-score"></div>
+                        </div>
+                        <div class="summary-col">
+                            <div id="sourceFilePill" class="meta-pill"></div>
+                            <div class="summary-cards">
+                                <div class="summary-card">
+                                    <p id="totalDeps" class="card-value">0</p>
+                                    <p class="card-label">Dependencies</p>
+                                </div>
+                                <div class="summary-card">
+                                    <p id="vulnFound" class="card-value danger-text">0</p>
+                                    <p class="card-label">Vulnerable</p>
+                                </div>
+                                <div class="summary-card">
+                                    <p id="zombiesFound" class="card-value warning-text">0</p>
+                                    <p class="card-label">Zombies</p>
+                                </div>
+                            </div>
+                            <button id="downloadBtn" onclick="downloadJson()" class="download-btn">Download JSON
+                                Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container 02 — Package List -->
+            <div class="cargo cargo--neutral">
+                <div class="cargo-body">
+                    <div class="cargo-header">
+                        <span class="cargo-title">Package List</span>
+                        <span class="cargo-serial">SH-CRGO-002</span>
+                    </div>
+                    <div class="cargo-divider"></div>
+                    <div id="packageList" class="package-grid"></div>
+                </div>
+            </div>
+
+            <!-- Container 03 — Vulnerability Report -->
+            <div class="cargo cargo--danger">
+                <div class="cargo-body">
+                    <div class="cargo-header">
+                        <span class="cargo-title">Vulnerability Report</span>
+                        <span class="cargo-serial">SH-CRGO-003</span>
+                    </div>
+                    <div class="cargo-divider"></div>
+                    <div id="vulnReport"></div>
+                </div>
+            </div>
+
+            <!-- Container 04 — Vitality Metrics -->
+            <div class="cargo cargo--caution">
+                <div class="cargo-body">
+                    <div class="cargo-header">
+                        <span class="cargo-title">Vitality Metrics</span>
+                        <span class="cargo-serial">SH-CRGO-004</span>
+                    </div>
+                    <div class="cargo-divider"></div>
+                    <div class="vitality-table-wrapper">
+                        <div id="vitalityTable"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /results -->
+    </div><!-- /page-wrapper -->
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>

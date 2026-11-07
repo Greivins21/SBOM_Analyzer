@@ -1,0 +1,21 @@
+{
+  "weights": {
+    "cve_penalty_per_vuln": 10,
+    "cve_max": 50,
+    "inactivity_penalty_per_year": 20,
+    "inactivity_max": 20,
+    "bus_factor_threshold": 1,
+    "bus_factor_penalty": 15,
+    "neglect_penalty_per_50_issues": 15,
+    "neglect_max": 15
+  },
+  "zombie_rules": {
+    "inactivity_days_threshold": 365,
+    "open_issues_threshold": 5,
+    "bus_factor_max": 10
+  },
+  "thresholds": {
+    "dangerous_min": 70,
+    "warning_min": 40
+  }
+}

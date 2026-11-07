@@ -1,0 +1,543 @@
+{
+    "source_file": "package.json",
+    "dependencies": {
+        "follow-redirects": "^1.15.11",
+        "form-data": "^4.0.5",
+        "proxy-from-env": "^2.1.0",
+        "@babel/core": "^7.29.0",
+        "@babel/preset-env": "^7.29.0",
+        "@commitlint/cli": "^20.4.4",
+        "@commitlint/config-conventional": "^20.4.4",
+        "@eslint/js": "^10.0.1",
+        "@rollup/plugin-alias": "^6.0.0",
+        "@rollup/plugin-babel": "^7.0.0",
+        "@rollup/plugin-commonjs": "^29.0.2",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-node-resolve": "^16.0.3",
+        "@rollup/plugin-terser": "^1.0.0",
+        "@vitest/browser": "^4.1.1",
+        "@vitest/browser-playwright": "^4.1.1",
+        "abortcontroller-polyfill": "^1.7.8",
+        "auto-changelog": "^2.5.0",
+        "body-parser": "^2.2.2",
+        "chalk": "^5.6.2",
+        "cross-env": "^10.1.0",
+        "dev-null": "^0.1.1",
+        "eslint": "^10.1.0",
+        "express": "^5.2.1",
+        "formdata-node": "^6.0.3",
+        "formidable": "^3.2.4",
+        "fs-extra": "^11.3.4",
+        "get-stream": "^9.0.1",
+        "globals": "^17.4.0",
+        "gulp": "^5.0.1",
+        "handlebars": "^4.7.8",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.4.0",
+        "memoizee": "^0.4.17",
+        "minimist": "^1.2.8",
+        "multer": "^2.1.1",
+        "pacote": "^21.5.0",
+        "playwright": "^1.58.2",
+        "prettier": "^3.8.1",
+        "pretty-bytes": "^7.1.0",
+        "rollup": "^4.60.0",
+        "rollup-plugin-bundle-size": "^1.0.3",
+        "selfsigned": "^5.5.0",
+        "stream-throttle": "^0.1.3",
+        "string-replace-async": "^3.0.2",
+        "tar-stream": "^3.1.8",
+        "typescript": "^5.9.3",
+        "vitest": "^4.1.1"
+    },
+    "vulnerability_report": {
+        "ecosystem": "npm",
+        "packages_checked": 48,
+        "vulnerable_packages_count": 13,
+        "clean_packages_count": 35,
+        "total_advisories": 48,
+        "clean_packages": [
+            "proxy-from-env",
+            "@babel/core",
+            "@babel/preset-env",
+            "@commitlint/cli",
+            "@commitlint/config-conventional",
+            "@eslint/js",
+            "@rollup/plugin-alias",
+            "@rollup/plugin-babel",
+            "@rollup/plugin-commonjs",
+            "@rollup/plugin-json",
+            "@rollup/plugin-node-resolve",
+            "@rollup/plugin-terser",
+            "@vitest/browser-playwright",
+            "abortcontroller-polyfill",
+            "auto-changelog",
+            "cross-env",
+            "dev-null",
+            "eslint",
+            "formdata-node",
+            "fs-extra",
+            "get-stream",
+            "globals",
+            "gulp",
+            "husky",
+            "lint-staged",
+            "memoizee",
+            "pacote",
+            "prettier",
+            "pretty-bytes",
+            "rollup-plugin-bundle-size",
+            "selfsigned",
+            "stream-throttle",
+            "string-replace-async",
+            "tar-stream",
+            "typescript"
+        ],
+        "vulnerable_packages": [
+            {
+                "package": "follow-redirects",
+                "version": "^1.15.11",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-74fj-2j2h-c42q",
+                        "cves": [
+                            "CVE-2022-0155"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Exposure of sensitive information in follow-redirects"
+                    },
+                    {
+                        "id": "GHSA-cxjh-pqwp-8mfp",
+                        "cves": [
+                            "CVE-2024-28849"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "follow-redirects' Proxy-Authorization header kept across hosts"
+                    },
+                    {
+                        "id": "GHSA-jchw-25xp-jwwc",
+                        "cves": [
+                            "CVE-2023-26159"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "Follow Redirects improperly handles URLs in the url.parse() function"
+                    },
+                    {
+                        "id": "GHSA-pw2r-vq6v-hr8c",
+                        "cves": [
+                            "CVE-2022-0536"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "Exposure of Sensitive Information to an Unauthorized Actor in follow-redirects"
+                    },
+                    {
+                        "id": "GHSA-r4q5-vmmm-2653",
+                        "cves": [],
+                        "severity": "UNKNOWN",
+                        "summary": "follow-redirects leaks Custom Authentication Headers to Cross-Domain Redirect Targets"
+                    }
+                ]
+            },
+            {
+                "package": "form-data",
+                "version": "^4.0.5",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-fjxv-7rqg-78g4",
+                        "cves": [
+                            "CVE-2025-7783"
+                        ],
+                        "severity": "CRITICAL",
+                        "summary": "form-data uses unsafe random function in form-data for choosing boundary"
+                    }
+                ]
+            },
+            {
+                "package": "@vitest/browser",
+                "version": "^4.1.1",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-8gvc-j273-4wm5",
+                        "cves": [
+                            "CVE-2025-24963"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "Vitest browser mode serves arbitrary files"
+                    }
+                ]
+            },
+            {
+                "package": "body-parser",
+                "version": "^2.2.2",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-qwcr-r2fm-qrc7",
+                        "cves": [
+                            "CVE-2024-45590"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "body-parser vulnerable to denial of service when url encoding is enabled"
+                    },
+                    {
+                        "id": "GHSA-wqch-xfxh-vrr4",
+                        "cves": [
+                            "CVE-2025-13466"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "body-parser is vulnerable to denial of service when url encoding is used"
+                    }
+                ]
+            },
+            {
+                "package": "chalk",
+                "version": "^5.6.2",
+                "vulnerabilities": [
+                    {
+                        "id": "MAL-2025-46969",
+                        "cves": [],
+                        "severity": "UNKNOWN",
+                        "summary": "Malicious code in chalk (npm)"
+                    }
+                ]
+            },
+            {
+                "package": "express",
+                "version": "^5.2.1",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-cm5g-3pgc-8rg4",
+                        "cves": [
+                            "CVE-2024-10491"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "Express ressource injection"
+                    },
+                    {
+                        "id": "GHSA-gpvr-g6gh-9mc2",
+                        "cves": [
+                            "CVE-2014-6393"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "No Charset in Content-Type Header in express"
+                    },
+                    {
+                        "id": "GHSA-jj78-5fmv-mv28",
+                        "cves": [
+                            "CVE-2024-9266"
+                        ],
+                        "severity": "LOW",
+                        "summary": "Express Open Redirect vulnerability"
+                    },
+                    {
+                        "id": "GHSA-qw6h-vgh9-j6wx",
+                        "cves": [
+                            "CVE-2024-43796"
+                        ],
+                        "severity": "LOW",
+                        "summary": "express vulnerable to XSS via response.redirect()"
+                    },
+                    {
+                        "id": "GHSA-rv95-896h-c2vc",
+                        "cves": [
+                            "CVE-2024-29041"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "Express.js Open Redirect in malformed URLs"
+                    }
+                ]
+            },
+            {
+                "package": "formidable",
+                "version": "^3.2.4",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-75v8-2h7p-7m2m",
+                        "cves": [
+                            "CVE-2025-46653"
+                        ],
+                        "severity": "LOW",
+                        "summary": "Formidable relies on hexoid to prevent guessing of filenames for untrusted executable content"
+                    }
+                ]
+            },
+            {
+                "package": "handlebars",
+                "version": "^4.7.8",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-2cf5-4w76-r9qv",
+                        "cves": [],
+                        "severity": "HIGH",
+                        "summary": "Arbitrary Code Execution in handlebars"
+                    },
+                    {
+                        "id": "GHSA-2qvq-rjwj-gvw9",
+                        "cves": [
+                            "CVE-2026-33916"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "Handlebars.js has Prototype Pollution Leading to XSS through Partial Template Injection"
+                    },
+                    {
+                        "id": "GHSA-2w6w-674q-4c4q",
+                        "cves": [
+                            "CVE-2026-33937"
+                        ],
+                        "severity": "CRITICAL",
+                        "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion"
+                    },
+                    {
+                        "id": "GHSA-3cqr-58rm-57f8",
+                        "cves": [
+                            "CVE-2019-20920"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Arbitrary Code Execution in Handlebars"
+                    },
+                    {
+                        "id": "GHSA-3mfm-83xf-c92r",
+                        "cves": [
+                            "CVE-2026-33938"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion by tampering @partial-block"
+                    },
+                    {
+                        "id": "GHSA-442j-39wm-28r2",
+                        "cves": [],
+                        "severity": "LOW",
+                        "summary": "Handlebars.js has a Property Access Validation Bypass in container.lookup"
+                    },
+                    {
+                        "id": "GHSA-62gr-4qp9-h98f",
+                        "cves": [
+                            "CVE-2019-20922"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Regular Expression Denial of Service in Handlebars"
+                    },
+                    {
+                        "id": "GHSA-765h-qjxv-5f44",
+                        "cves": [
+                            "CVE-2021-23383"
+                        ],
+                        "severity": "CRITICAL",
+                        "summary": "Prototype Pollution in handlebars"
+                    },
+                    {
+                        "id": "GHSA-7rx3-28cr-v5wh",
+                        "cves": [],
+                        "severity": "UNKNOWN",
+                        "summary": "Handlebars.js has a Prototype Method Access Control Gap via Missing __lookupSetter__ Blocklist Entry"
+                    },
+                    {
+                        "id": "GHSA-9cx6-37pm-9jff",
+                        "cves": [
+                            "CVE-2026-33939"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Handlebars.js has Denial of Service via Malformed Decorator Syntax in Template Compilation"
+                    },
+                    {
+                        "id": "GHSA-9prh-257w-9277",
+                        "cves": [
+                            "CVE-2015-8861"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "Cross-Site Scripting in handlebars"
+                    },
+                    {
+                        "id": "GHSA-f2jv-r9rf-7988",
+                        "cves": [
+                            "CVE-2021-23369"
+                        ],
+                        "severity": "CRITICAL",
+                        "summary": "Remote code execution in handlebars when compiling templates"
+                    },
+                    {
+                        "id": "GHSA-f52g-6jhx-586p",
+                        "cves": [],
+                        "severity": "UNKNOWN",
+                        "summary": "Denial of Service in handlebars"
+                    },
+                    {
+                        "id": "GHSA-g9r4-xpmj-mj65",
+                        "cves": [],
+                        "severity": "HIGH",
+                        "summary": "Prototype Pollution in handlebars"
+                    },
+                    {
+                        "id": "GHSA-q2c6-c6pm-g3gh",
+                        "cves": [],
+                        "severity": "HIGH",
+                        "summary": "Arbitrary Code Execution in handlebars"
+                    },
+                    {
+                        "id": "GHSA-q42p-pg8m-cqh6",
+                        "cves": [],
+                        "severity": "HIGH",
+                        "summary": "Prototype Pollution in handlebars"
+                    },
+                    {
+                        "id": "GHSA-w457-6q6x-cgp9",
+                        "cves": [
+                            "CVE-2019-19919"
+                        ],
+                        "severity": "CRITICAL",
+                        "summary": "Prototype Pollution in handlebars"
+                    },
+                    {
+                        "id": "GHSA-xhpv-hc6g-r9c6",
+                        "cves": [
+                            "CVE-2026-33940"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Handlebars.js has JavaScript Injection via AST Type Confusion when passing an object as dynamic partial"
+                    },
+                    {
+                        "id": "GHSA-xjpj-3mr7-gcpf",
+                        "cves": [
+                            "CVE-2026-33941"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Handlebars.js has JavaScript Injection in CLI Precompiler via Unescaped Names and Options"
+                    }
+                ]
+            },
+            {
+                "package": "minimist",
+                "version": "^1.2.8",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-vh95-rmgr-6w4m",
+                        "cves": [
+                            "CVE-2020-7598"
+                        ],
+                        "severity": "UNKNOWN",
+                        "summary": "Prototype Pollution in minimist"
+                    },
+                    {
+                        "id": "GHSA-xvch-5gv4-984h",
+                        "cves": [
+                            "CVE-2021-44906"
+                        ],
+                        "severity": "CRITICAL",
+                        "summary": "Prototype Pollution in minimist"
+                    }
+                ]
+            },
+            {
+                "package": "multer",
+                "version": "^2.1.1",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-44fp-w29j-9vj5",
+                        "cves": [
+                            "CVE-2025-47935"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Multer vulnerable to Denial of Service via memory leaks from unclosed streams"
+                    },
+                    {
+                        "id": "GHSA-4pg4-qvpc-4q3h",
+                        "cves": [
+                            "CVE-2025-47944"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Multer vulnerable to Denial of Service from maliciously crafted requests"
+                    },
+                    {
+                        "id": "GHSA-5528-5vmv-3xc2",
+                        "cves": [
+                            "CVE-2026-3520"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Multer Vulnerable to Denial of Service via Uncontrolled Recursion"
+                    },
+                    {
+                        "id": "GHSA-fjgf-rc76-4x9p",
+                        "cves": [
+                            "CVE-2025-7338"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Multer vulnerable to Denial of Service via unhandled exception from malformed request"
+                    },
+                    {
+                        "id": "GHSA-g5hg-p3ph-g8qg",
+                        "cves": [
+                            "CVE-2025-48997"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Multer vulnerable to Denial of Service via unhandled exception"
+                    },
+                    {
+                        "id": "GHSA-v52c-386h-88mc",
+                        "cves": [
+                            "CVE-2026-2359"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Multer vulnerable to Denial of Service via resource exhaustion"
+                    },
+                    {
+                        "id": "GHSA-xf7r-hgr6-v32p",
+                        "cves": [
+                            "CVE-2026-3304"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Multer vulnerable to Denial of Service via incomplete cleanup"
+                    }
+                ]
+            },
+            {
+                "package": "playwright",
+                "version": "^1.58.2",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-7mvr-c777-76hp",
+                        "cves": [
+                            "CVE-2025-59288"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Playwright downloads and installs browsers without verifying the authenticity of the SSL certificate"
+                    }
+                ]
+            },
+            {
+                "package": "rollup",
+                "version": "^4.60.0",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-gcx4-mw62-g8wm",
+                        "cves": [
+                            "CVE-2024-47068"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "DOM Clobbering Gadget found in rollup bundled scripts that leads to XSS"
+                    },
+                    {
+                        "id": "GHSA-mw96-cpmx-2vgc",
+                        "cves": [
+                            "CVE-2026-27606"
+                        ],
+                        "severity": "HIGH",
+                        "summary": "Rollup 4 has Arbitrary File Write via Path Traversal"
+                    }
+                ]
+            },
+            {
+                "package": "vitest",
+                "version": "^4.1.1",
+                "vulnerabilities": [
+                    {
+                        "id": "GHSA-9crc-q9x8-hgqq",
+                        "cves": [
+                            "CVE-2025-24964"
+                        ],
+                        "severity": "CRITICAL",
+                        "summary": "Vitest allows Remote Code Execution when accessing a malicious website while Vitest API server is listening"
+                    }
+                ]
+            }
+        ]
+    }
+}

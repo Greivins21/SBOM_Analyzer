@@ -1,0 +1,534 @@
+{
+  "configuration" : { },
+  "description" : "Zombie Package Detector for GitHub repos.",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedDate" : "2026-05-04T15:37:57Z",
+  "model" : {
+    "people" : [ {
+      "description" : "Submits a GitHub repo URL.",
+      "id" : "1",
+      "name" : "Developer",
+      "properties" : {
+        "structurizr.dsl.identifier" : "developer"
+      },
+      "relationships" : [ {
+        "description" : "Enter repo URL, get report",
+        "destinationId" : "5",
+        "id" : "16",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "HTTP :80",
+        "destinationId" : "6",
+        "id" : "20",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Opens browser",
+        "destinationId" : "8",
+        "id" : "27",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Opens browser",
+        "destinationId" : "7",
+        "id" : "28",
+        "linkedRelationshipId" : "27",
+        "sourceId" : "1"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "description" : "Repo metadata, commits, contributors.",
+      "documentation" : { },
+      "id" : "2",
+      "name" : "GitHub API",
+      "properties" : {
+        "structurizr.dsl.identifier" : "githubApi"
+      },
+      "tags" : "Element,Software System,External System"
+    }, {
+      "description" : "Known CVEs per package.",
+      "documentation" : { },
+      "id" : "3",
+      "name" : "OSV API",
+      "properties" : {
+        "structurizr.dsl.identifier" : "osvApi"
+      },
+      "tags" : "Element,Software System,External System"
+    }, {
+      "description" : "PyPI / npm / crates.io",
+      "documentation" : { },
+      "id" : "4",
+      "name" : "Package Registries",
+      "properties" : {
+        "structurizr.dsl.identifier" : "pkgRegistries"
+      },
+      "tags" : "Element,Software System,External System"
+    }, {
+      "containers" : [ {
+        "description" : "Reverse proxy on port 80.",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "Nginx",
+        "properties" : {
+          "structurizr.dsl.identifier" : "nginx"
+        },
+        "relationships" : [ {
+          "description" : ":5000",
+          "destinationId" : "7",
+          "id" : "21",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        }, {
+          "description" : ":8000",
+          "destinationId" : "10",
+          "id" : "22",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Infrastructure",
+        "technology" : "Nginx"
+      }, {
+        "components" : [ {
+          "description" : "Form to submit a repo URL.",
+          "documentation" : { },
+          "id" : "8",
+          "name" : "HTML + JS Page",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ui"
+          },
+          "relationships" : [ {
+            "description" : "POST /analyze",
+            "destinationId" : "9",
+            "id" : "29",
+            "sourceId" : "8",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "HTML / JS"
+        }, {
+          "description" : "GET / — serve page. POST /analyze — forward to Scanner API.",
+          "documentation" : { },
+          "id" : "9",
+          "name" : "Flask Routes",
+          "properties" : {
+            "structurizr.dsl.identifier" : "routes"
+          },
+          "relationships" : [ {
+            "description" : "POST /zombie-scan",
+            "destinationId" : "10",
+            "id" : "30",
+            "sourceId" : "9",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Flask"
+        } ],
+        "description" : "User interface. Enter a repo URL, see the report.",
+        "documentation" : { },
+        "id" : "7",
+        "name" : "Web App",
+        "properties" : {
+          "structurizr.dsl.identifier" : "webApp"
+        },
+        "relationships" : [ {
+          "description" : "POST /zombie-scan",
+          "destinationId" : "10",
+          "id" : "23",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Web Browser",
+        "technology" : "Flask + Gunicorn"
+      }, {
+        "components" : [ {
+          "description" : "POST /scan  POST /zombie-scan  GET /report",
+          "documentation" : { },
+          "id" : "11",
+          "name" : "Router",
+          "properties" : {
+            "structurizr.dsl.identifier" : "router"
+          },
+          "relationships" : [ {
+            "description" : "1. Fetch & parse deps",
+            "destinationId" : "12",
+            "id" : "31",
+            "sourceId" : "11",
+            "tags" : "Relationship"
+          }, {
+            "description" : "2. Check CVEs",
+            "destinationId" : "13",
+            "id" : "33",
+            "sourceId" : "11",
+            "tags" : "Relationship"
+          }, {
+            "description" : "3. Enrich vitality",
+            "destinationId" : "14",
+            "id" : "35",
+            "sourceId" : "11",
+            "tags" : "Relationship"
+          }, {
+            "description" : "4. Score & grade",
+            "destinationId" : "15",
+            "id" : "38",
+            "sourceId" : "11",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "FastAPI"
+        }, {
+          "description" : "Fetch repo file tree. Parse dependency file.",
+          "documentation" : { },
+          "id" : "12",
+          "name" : "Utils",
+          "properties" : {
+            "structurizr.dsl.identifier" : "utils"
+          },
+          "relationships" : [ {
+            "description" : "GET repo contents",
+            "destinationId" : "2",
+            "id" : "32",
+            "sourceId" : "12",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Python"
+        }, {
+          "description" : "Check each package against OSV for CVEs.",
+          "documentation" : { },
+          "id" : "13",
+          "name" : "Vuln Checker",
+          "properties" : {
+            "structurizr.dsl.identifier" : "vuln"
+          },
+          "relationships" : [ {
+            "description" : "POST /v1/querybatch",
+            "destinationId" : "3",
+            "id" : "34",
+            "sourceId" : "13",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Python"
+        }, {
+          "description" : "Days since last commit. Bus factor. Open issues.",
+          "documentation" : { },
+          "id" : "14",
+          "name" : "Vitality Enricher",
+          "properties" : {
+            "structurizr.dsl.identifier" : "vitality"
+          },
+          "relationships" : [ {
+            "description" : "GET package info",
+            "destinationId" : "4",
+            "id" : "36",
+            "sourceId" : "14",
+            "tags" : "Relationship"
+          }, {
+            "description" : "GET commits & issues",
+            "destinationId" : "2",
+            "id" : "37",
+            "sourceId" : "14",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Python"
+        }, {
+          "description" : "Score 0–100+ per package. Grade the whole repo.",
+          "documentation" : { },
+          "id" : "15",
+          "name" : "Risk Scorer",
+          "properties" : {
+            "structurizr.dsl.identifier" : "scorer"
+          },
+          "tags" : "Element,Component",
+          "technology" : "Python"
+        } ],
+        "description" : "Runs the analysis pipeline.",
+        "documentation" : { },
+        "id" : "10",
+        "name" : "Scanner API",
+        "properties" : {
+          "structurizr.dsl.identifier" : "scannerApi"
+        },
+        "relationships" : [ {
+          "description" : "Commits, contributors, issues",
+          "destinationId" : "2",
+          "id" : "24",
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "CVE lookup",
+          "destinationId" : "3",
+          "id" : "25",
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Package metadata",
+          "destinationId" : "4",
+          "id" : "26",
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "FastAPI + Uvicorn"
+      } ],
+      "description" : "Scans dependencies. Returns a risk score: Safe / Warning / Dangerous.",
+      "documentation" : { },
+      "id" : "5",
+      "name" : "Ship Happens",
+      "properties" : {
+        "structurizr.dsl.identifier" : "shipHappens"
+      },
+      "relationships" : [ {
+        "description" : "Fetch metadata & commit history",
+        "destinationId" : "2",
+        "id" : "17",
+        "sourceId" : "5",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Check CVEs",
+        "destinationId" : "3",
+        "id" : "18",
+        "sourceId" : "5",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Resolve package source URLs",
+        "destinationId" : "4",
+        "id" : "19",
+        "sourceId" : "5",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "Ship Happens",
+  "properties" : {
+    "structurizr.inspection.error" : "28",
+    "structurizr.dsl" : "d29ya3NwYWNlICJTaGlwIEhhcHBlbnMiICJab21iaWUgUGFja2FnZSBEZXRlY3RvciBmb3IgR2l0SHViIHJlcG9zLiIgewoKICAgIG1vZGVsIHsKCiAgICAgICAgZGV2ZWxvcGVyICAgICA9IHBlcnNvbiAiRGV2ZWxvcGVyIiAiU3VibWl0cyBhIEdpdEh1YiByZXBvIFVSTC4iCgogICAgICAgIGdpdGh1YkFwaSAgICAgPSBzb2Z0d2FyZVN5c3RlbSAiR2l0SHViIEFQSSIgIlJlcG8gbWV0YWRhdGEsIGNvbW1pdHMsIGNvbnRyaWJ1dG9ycy4iICJFeHRlcm5hbCBTeXN0ZW0iCiAgICAgICAgb3N2QXBpICAgICAgICA9IHNvZnR3YXJlU3lzdGVtICJPU1YgQVBJIiAiS25vd24gQ1ZFcyBwZXIgcGFja2FnZS4iICJFeHRlcm5hbCBTeXN0ZW0iCiAgICAgICAgcGtnUmVnaXN0cmllcyA9IHNvZnR3YXJlU3lzdGVtICJQYWNrYWdlIFJlZ2lzdHJpZXMiICJQeVBJIC8gbnBtIC8gY3JhdGVzLmlvIiAiRXh0ZXJuYWwgU3lzdGVtIgoKICAgICAgICBzaGlwSGFwcGVucyA9IHNvZnR3YXJlU3lzdGVtICJTaGlwIEhhcHBlbnMiICJTY2FucyBkZXBlbmRlbmNpZXMuIFJldHVybnMgYSByaXNrIHNjb3JlOiBTYWZlIC8gV2FybmluZyAvIERhbmdlcm91cy4iIHsKCiAgICAgICAgICAgIG5naW54ID0gY29udGFpbmVyICJOZ2lueCIgIlJldmVyc2UgcHJveHkgb24gcG9ydCA4MC4iICJOZ2lueCIgIkluZnJhc3RydWN0dXJlIgoKICAgICAgICAgICAgd2ViQXBwID0gY29udGFpbmVyICJXZWIgQXBwIiAiVXNlciBpbnRlcmZhY2UuIEVudGVyIGEgcmVwbyBVUkwsIHNlZSB0aGUgcmVwb3J0LiIgIkZsYXNrICsgR3VuaWNvcm4iICJXZWIgQnJvd3NlciIgewogICAgICAgICAgICAgICAgdWkgICAgICA9IGNvbXBvbmVudCAiSFRNTCArIEpTIFBhZ2UiICJGb3JtIHRvIHN1Ym1pdCBhIHJlcG8gVVJMLiIgIkhUTUwgLyBKUyIKICAgICAgICAgICAgICAgIHJvdXRlcyAgPSBjb21wb25lbnQgIkZsYXNrIFJvdXRlcyIgIkdFVCAvIOKAlCBzZXJ2ZSBwYWdlLiBQT1NUIC9hbmFseXplIOKAlCBmb3J3YXJkIHRvIFNjYW5uZXIgQVBJLiIgIkZsYXNrIgogICAgICAgICAgICB9CgogICAgICAgICAgICBzY2FubmVyQXBpID0gY29udGFpbmVyICJTY2FubmVyIEFQSSIgIlJ1bnMgdGhlIGFuYWx5c2lzIHBpcGVsaW5lLiIgIkZhc3RBUEkgKyBVdmljb3JuIiB7CiAgICAgICAgICAgICAgICByb3V0ZXIgICA9IGNvbXBvbmVudCAiUm91dGVyIiAiUE9TVCAvc2NhbiAgUE9TVCAvem9tYmllLXNjYW4gIEdFVCAvcmVwb3J0IiAiRmFzdEFQSSIKICAgICAgICAgICAgICAgIHV0aWxzICAgID0gY29tcG9uZW50ICJVdGlscyIgIkZldGNoIHJlcG8gZmlsZSB0cmVlLiBQYXJzZSBkZXBlbmRlbmN5IGZpbGUuIiAiUHl0aG9uIgogICAgICAgICAgICAgICAgdnVsbiAgICAgPSBjb21wb25lbnQgIlZ1bG4gQ2hlY2tlciIgIkNoZWNrIGVhY2ggcGFja2FnZSBhZ2FpbnN0IE9TViBmb3IgQ1ZFcy4iICJQeXRob24iCiAgICAgICAgICAgICAgICB2aXRhbGl0eSA9IGNvbXBvbmVudCAiVml0YWxpdHkgRW5yaWNoZXIiICJEYXlzIHNpbmNlIGxhc3QgY29tbWl0LiBCdXMgZmFjdG9yLiBPcGVuIGlzc3Vlcy4iICJQeXRob24iCiAgICAgICAgICAgICAgICBzY29yZXIgICA9IGNvbXBvbmVudCAiUmlzayBTY29yZXIiICJTY29yZSAw4oCTMTAwKyBwZXIgcGFja2FnZS4gR3JhZGUgdGhlIHdob2xlIHJlcG8uIiAiUHl0aG9uIgogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICAjIENvbnRleHQKICAgICAgICBkZXZlbG9wZXIgICAgLT4gc2hpcEhhcHBlbnMgICJFbnRlciByZXBvIFVSTCwgZ2V0IHJlcG9ydCIKICAgICAgICBzaGlwSGFwcGVucyAgLT4gZ2l0aHViQXBpICAgICJGZXRjaCBtZXRhZGF0YSAmIGNvbW1pdCBoaXN0b3J5IgogICAgICAgIHNoaXBIYXBwZW5zICAtPiBvc3ZBcGkgICAgICAgIkNoZWNrIENWRXMiCiAgICAgICAgc2hpcEhhcHBlbnMgIC0+IHBrZ1JlZ2lzdHJpZXMgIlJlc29sdmUgcGFja2FnZSBzb3VyY2UgVVJMcyIKCiAgICAgICAgIyBDb250YWluZXJzCiAgICAgICAgZGV2ZWxvcGVyICAtPiBuZ2lueCAgICAgICJIVFRQIDo4MCIKICAgICAgICBuZ2lueCAgICAgIC0+IHdlYkFwcCAgICAgIjo1MDAwIgogICAgICAgIG5naW54ICAgICAgLT4gc2Nhbm5lckFwaSAiOjgwMDAiCiAgICAgICAgd2ViQXBwICAgICAtPiBzY2FubmVyQXBpICJQT1NUIC96b21iaWUtc2NhbiIKICAgICAgICBzY2FubmVyQXBpIC0+IGdpdGh1YkFwaSAgICAiQ29tbWl0cywgY29udHJpYnV0b3JzLCBpc3N1ZXMiCiAgICAgICAgc2Nhbm5lckFwaSAtPiBvc3ZBcGkgICAgICAgIkNWRSBsb29rdXAiCiAgICAgICAgc2Nhbm5lckFwaSAtPiBwa2dSZWdpc3RyaWVzICJQYWNrYWdlIG1ldGFkYXRhIgoKICAgICAgICAjIFdlYiBBcHAgY29tcG9uZW50cwogICAgICAgIGRldmVsb3BlciAtPiB1aSAgICAgIk9wZW5zIGJyb3dzZXIiCiAgICAgICAgdWkgICAgICAgIC0+IHJvdXRlcyAiUE9TVCAvYW5hbHl6ZSIKICAgICAgICByb3V0ZXMgICAgLT4gc2Nhbm5lckFwaSAiUE9TVCAvem9tYmllLXNjYW4iCgogICAgICAgICMgU2Nhbm5lciBBUEkgcGlwZWxpbmUKICAgICAgICByb3V0ZXIgICAtPiB1dGlscyAgICAiMS4gRmV0Y2ggJiBwYXJzZSBkZXBzIgogICAgICAgIHV0aWxzICAgIC0+IGdpdGh1YkFwaSAiR0VUIHJlcG8gY29udGVudHMiCiAgICAgICAgcm91dGVyICAgLT4gdnVsbiAgICAgIjIuIENoZWNrIENWRXMiCiAgICAgICAgdnVsbiAgICAgLT4gb3N2QXBpICAgIlBPU1QgL3YxL3F1ZXJ5YmF0Y2giCiAgICAgICAgcm91dGVyICAgLT4gdml0YWxpdHkgIjMuIEVucmljaCB2aXRhbGl0eSIKICAgICAgICB2aXRhbGl0eSAtPiBwa2dSZWdpc3RyaWVzICJHRVQgcGFja2FnZSBpbmZvIgogICAgICAgIHZpdGFsaXR5IC0+IGdpdGh1YkFwaSAgICAgIkdFVCBjb21taXRzICYgaXNzdWVzIgogICAgICAgIHJvdXRlciAgIC0+IHNjb3JlciAgICI0LiBTY29yZSAmIGdyYWRlIgogICAgfQoKICAgIHZpZXdzIHsKCiAgICAgICAgc3lzdGVtQ29udGV4dCBzaGlwSGFwcGVucyAiUHJvamVjdE92ZXJ2aWV3IiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgICAgIHRpdGxlICIxLiBQcm9qZWN0IE92ZXJ2aWV3IgogICAgICAgICAgICBkZXNjcmlwdGlvbiAiV2hhdCB0aGUgc3lzdGVtIGRvZXMgYW5kIHdoby93aGF0IGl0IHRhbGtzIHRvLiIKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBzaGlwSGFwcGVucyAiV2ViSW50ZXJmYWNlRGlhZ3JhbSIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dCBscgogICAgICAgICAgICB0aXRsZSAiMi4gV2ViIEludGVyZmFjZSIKICAgICAgICAgICAgZGVzY3JpcHRpb24gIk5naW54LCBXZWIgQXBwLCBhbmQgU2Nhbm5lciBBUEkgY29udGFpbmVycy4iCiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgc2Nhbm5lckFwaSAiQVBJRmxvd0RpYWdyYW0iIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgbHIKICAgICAgICAgICAgdGl0bGUgIjMuIEFQSSBGbG93IOKAlCBBbmFseXNpcyBQaXBlbGluZSIKICAgICAgICAgICAgZGVzY3JpcHRpb24gIkZvdXIgc3RlcHM6IHBhcnNlIGRlcHMg4oaSIGNoZWNrIENWRXMg4oaSIGVucmljaCB2aXRhbGl0eSDihpIgc2NvcmUuIgogICAgICAgIH0KCiAgICAgICAgc3R5bGVzIHsKICAgICAgICAgICAgZWxlbWVudCAiUGVyc29uIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBQZXJzb24KICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiMxQjRGNzIiCiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJTb2Z0d2FyZSBTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiMyRTg2QzEiCiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJFeHRlcm5hbCBTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiM3MTdEN0UiCiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJDb250YWluZXIiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiMyODc0QTYiCiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJJbmZyYXN0cnVjdHVyZSIgewogICAgICAgICAgICAgICAgc2hhcGUgUm91bmRlZEJveAogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAiIzVENkQ3RSIKICAgICAgICAgICAgICAgIGNvbG9yICIjZmZmZmZmIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIldlYiBCcm93c2VyIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBXZWJCcm93c2VyCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICIjMUE1Mjc2IgogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiQ29tcG9uZW50IiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICIjQUVENkYxIgogICAgICAgICAgICAgICAgY29sb3IgIiMxQjI2MzEiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgcmVsYXRpb25zaGlwICJSZWxhdGlvbnNoaXAiIHsKICAgICAgICAgICAgICAgIGRhc2hlZCBmYWxzZQogICAgICAgICAgICAgICAgY29sb3IgIiMyRTg2QzEiCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIHRoZW1lIGRlZmF1bHQKICAgIH0KfQ==",
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.warning" : "0"
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "containerId" : "10",
+      "description" : "Four steps: parse deps → check CVEs → enrich vitality → score.",
+      "elements" : [ {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "APIFlowDiagram",
+      "name" : "Component View: Ship Happens - Scanner API",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "31"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "34"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "36"
+      }, {
+        "id" : "37"
+      }, {
+        "id" : "38"
+      } ],
+      "title" : "3. API Flow — Analysis Pipeline"
+    } ],
+    "configuration" : {
+      "styles" : {
+        "elements" : [ {
+          "background" : "#aed6f1",
+          "color" : "#1b2631",
+          "tag" : "Component"
+        }, {
+          "background" : "#2874a6",
+          "color" : "#ffffff",
+          "tag" : "Container"
+        }, {
+          "background" : "#717d7e",
+          "color" : "#ffffff",
+          "tag" : "External System"
+        }, {
+          "background" : "#5d6d7e",
+          "color" : "#ffffff",
+          "shape" : "RoundedBox",
+          "tag" : "Infrastructure"
+        }, {
+          "background" : "#1b4f72",
+          "color" : "#ffffff",
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "background" : "#2e86c1",
+          "color" : "#ffffff",
+          "tag" : "Software System"
+        }, {
+          "background" : "#1a5276",
+          "color" : "#ffffff",
+          "shape" : "WebBrowser",
+          "tag" : "Web Browser"
+        } ],
+        "relationships" : [ {
+          "color" : "#2e86c1",
+          "dashed" : false,
+          "tag" : "Relationship"
+        } ]
+      },
+      "terminology" : { },
+      "themes" : [ "https://static.structurizr.com/themes/default/theme.json" ]
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "Nginx, Web App, and Scanner API containers.",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "WebInterfaceDiagram",
+      "name" : "Container View: Ship Happens",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "20"
+      }, {
+        "id" : "21"
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "26"
+      }, {
+        "id" : "28"
+      } ],
+      "softwareSystemId" : "5",
+      "title" : "2. Web Interface"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "What the system does and who/what it talks to.",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "ProjectOverview",
+      "name" : "System Context View: Ship Happens",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "16"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "18"
+      }, {
+        "id" : "19"
+      } ],
+      "softwareSystemId" : "5",
+      "title" : "1. Project Overview"
+    } ]
+  }
+}
